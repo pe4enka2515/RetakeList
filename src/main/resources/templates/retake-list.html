@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+<body>
+<div th:switch="${retakes}">
+    <h2 th:case="null">No retakes found!</h2>
+    <div th:case="*">
+        <h2>Пересдачи</h2>
+        <table class="table table-dark table-striped">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Дисциплина</th>
+                <th>Преподаватель</th>
+                <th>Дата и время пересдачи</th>
+                <th>Аудитория</th>
+                <th>Кафедра</th>
+                <th>Примечание</th>
+                <th> </th>
+                <th> </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="retake : ${retakes}">
+                <td th:text="${retake.id}"></td>
+                <td th:text="${retake.name}"></td>
+                <td th:text="${retake.teacher}"></td>
+                <td th:text="${retake.time_retake}"></td>
+                <td th:text="${retake.room}"></td>
+                <td th:text="${retake.departament}"></td>
+                <td th:text="${retake.text_comment}"></td>
+                <td><a th:href="@{retake-update/{id}(id=${retake.id})}"><button type="button" class="btn btn-light">Изменить</button></a></td>
+                <td><a th:href="@{retake-delete/{id}(id=${retake.id})}"><button type="button" class="btn btn-light">Удалить</button></a></td>
+                <!--
+                <td><a th:href="@{retake-update/{id}(id=${retake.id})}">Редактировать</a></td>
+                <td><a th:href="@{retake-delete/{id}(id=${retake.id})}">Удалить</a></td>
+                -->
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/retake-create">Добавить пересдачу</a></p>
+</div>
+</body>
+</html>
